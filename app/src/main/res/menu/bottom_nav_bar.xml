@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Home"
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_home"/>
+        android:icon="@drawable/home_selector"/>
     <item android:title="Search"
         android:id="@+id/searchFragment"
-        android:icon="@drawable/ic_search"/>
+        android:icon="@drawable/search_selector"/>
     <item android:title="Kebijakan"
         android:id="@+id/govermentPolicyFragment"
-        android:icon="@drawable/ic_govermentpolicy"/>
+        android:icon="@drawable/govermentpolicy_selector"/>
     <item android:title="Profile"
         android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_profile"/>
+        android:icon="@drawable/profile_selector"/>
 </menu>
