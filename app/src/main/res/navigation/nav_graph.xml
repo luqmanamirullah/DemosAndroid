@@ -9,20 +9,37 @@
         android:id="@+id/homeFragment"
         android:name="com.example.demos.ui.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home"
+        app:defaultNavHost="true"
+       >
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_homeFragment_to_govermentPolicyFragment"
+            app:destination="@id/govermentPolicyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.demos.ui.fragments.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search"
+        app:defaultNavHost="false"/>
     <fragment
         android:id="@+id/govermentPolicyFragment"
         android:name="com.example.demos.ui.fragments.GovermentPolicyFragment"
         android:label="fragment_govermentpolicy"
-        tools:layout="@layout/fragment_govermentpolicy" />
+        tools:layout="@layout/fragment_govermentpolicy"
+        app:defaultNavHost="false"/>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.demos.ui.fragments.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile"
+        app:defaultNavHost="false"/>
 </navigation>
