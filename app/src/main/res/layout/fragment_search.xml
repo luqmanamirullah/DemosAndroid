@@ -11,5 +11,4 @@
         android:text="Search Fragment"
         android:textSize="10pt"
         android:layout_gravity="center"/>
-
 </FrameLayout>
