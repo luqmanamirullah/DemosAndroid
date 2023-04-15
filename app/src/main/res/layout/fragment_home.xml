@@ -40,13 +40,19 @@
        </LinearLayout>
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cuy"
+            android:text="Daemn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/header"
             tools:ignore="MissingConstraints" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rebase"
+            app:layout_constraintBottom_toBottomOf="@+id/header" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
