@@ -48,5 +48,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/headlineContainer"
-        android:background="@color/gray_200"
+        android:background="@color/gray_200"/>
 </RelativeLayout>
