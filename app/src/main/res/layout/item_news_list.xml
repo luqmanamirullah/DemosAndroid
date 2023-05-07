@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivPicture"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_placeholder"
+            app:shapeAppearanceOverlay="@style/rounded_lg_white" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/ivPicture"
+            android:text="DPR RI memutuskan untuk menambah dana oparasional!"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tvPreText"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="16dp"
+            android:layout_below="@+id/tvTitle"
+            android:layout_toEndOf="@+id/ivPicture"
+            android:text="DPR RI memutuskan untuk menambah dana oparasional! untuk..."
+            android:textColor="@color/gray_500"
+            android:textSize="10sp"
+            android:textStyle="normal" />
+        <TextView
+            android:id="@+id/tvCreatedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"
+            android:layout_below="@+id/tvPreText"
+            android:layout_toEndOf="@+id/ivPicture"
+            android:text="2022-10-12"
+            android:textColor="@color/gray_500"
+            android:textSize="8sp"
+            android:textStyle="italic" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
