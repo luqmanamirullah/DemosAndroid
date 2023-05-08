@@ -111,7 +111,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView4"/>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
+                android:id="@+id/btnInformation"
                 android:layout_width="270dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="30dp"
@@ -161,7 +161,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
+                android:id="@+id/btnSetting"
                 android:layout_width="270dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="10dp"
@@ -169,7 +169,7 @@
                 app:cardCornerRadius="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView">
+                app:layout_constraintTop_toBottomOf="@+id/btnInformation">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -210,6 +210,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/btnLogout"
                 android:layout_width="270dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="10dp"
@@ -217,7 +218,7 @@
                 app:cardCornerRadius="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView2">
+                app:layout_constraintTop_toBottomOf="@+id/btnSetting">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -233,7 +234,7 @@
                         android:src="@drawable/baseline_login_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:layout_width="wrap_content"
