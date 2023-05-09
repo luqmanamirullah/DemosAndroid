@@ -2,25 +2,24 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_weight="1"
-    android:layout_height="wrap_content"
+    android:layout_height="20pt"
     android:id="@+id/search_component"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="25dp"
     app:cardElevation="5dp"
     app:cardBackgroundColor="@color/white"
     android:layout_marginVertical="5dp"
     android:layout_marginHorizontal="2dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20pt"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="7dp">
+        android:paddingHorizontal="20dp">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -30,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_hint"
+                android:textSize="15dp"
                 android:textColorHint="@color/gray_500"
                 android:inputType="text"
                 android:maxLines="1"
