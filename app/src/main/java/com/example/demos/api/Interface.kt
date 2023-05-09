@@ -1,10 +1,12 @@
 package com.example.demos.api
 
+import com.example.demos.models.news.ArticleData
 import com.example.demos.models.news.NewsLists
 import com.example.demos.models.news.NewsType
 import com.example.demos.models.trending.TrendingLists
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Interface {
@@ -16,6 +18,12 @@ interface Interface {
 
     @GET("news-type")
     suspend fun getNewsType() : Response<NewsType>
+
+    @GET("news/{id}")
+    suspend fun getNewsDetails(
+        @Path("id")
+        newsId: Int
+    ): Response<ArticleData>
 
     @GET("trending-lists")
     suspend fun getTrends() : Response<TrendingLists>
