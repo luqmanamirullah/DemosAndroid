@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.ArticleActivity">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:backgroundTint="@color/white"
+                android:layout_marginVertical="14dp"
+                android:src="@drawable/baseline_arrow_back_24"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="14dp"
+                android:text="Demos"
+                android:textColor="@color/black"
+                android:textSize="23dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+         <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+             android:layout_marginTop="60dp"
+             app:layout_constraintTop_toBottomOf="@id/ctTopBar">
+             <androidx.constraintlayout.widget.ConstraintLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+
+                 <ImageView
+                     android:id="@+id/ivArticle"
+                     android:layout_width="match_parent"
+                     android:layout_height="100pt"
+                     android:src="@drawable/img_placeholder"
+                     app:layout_constraintStart_toStartOf="parent"
+                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:text="Technology"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivArticle" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:text="The Words Tiktok Parent BYTEDANCE May Be Watching Yout Say"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvType" />
+
+                <TextView
+                    android:id="@+id/tvAuthor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="author by: Leight"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/gray_500"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginVertical="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tvCreatedAt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="April, 20, 2023 UTC"
+                    android:textSize="10sp"
+                    android:textStyle="italic"
+                    android:textColor="@color/gray_500"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginVertical="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvAuthor"
+                    app:layout_constraintStart_toStartOf="parent"/>
+                <TextView
+                    android:id="@+id/tvContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="YOU like cats if you like!' the Duchess was VERY ugly; and secondly, because she was talking. 'How CAN I have none, Why, I haven't had a large ring, with the Duchess, as she stood still where she was ready to ask help of any good reason, and as he shook both his shoes on. '--and just take his head off outside,' the Queen to-day?' 'I should like to see if she were looking over his shoulder with some surprise that the hedgehog a blow with its arms and frowning at the moment, 'My dear! I shall have somebody to talk about cats or dogs either, if you wouldn't have come here.' Alice didn't think that very few little girls of her knowledge. 'Just think of anything to say, she simply bowed, and took the hookah into its mouth and yawned once or twice, and shook itself. Then it got down off the mushroom, and raised herself to some tea and bread-and-butter, and went in. The door led right into a conversation. 'You don't know what they're like.' 'I believe so,' Alice replied very solemnly. Alice."
+                    android:textColor="@color/gray_500"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvCreatedAt"
+                    app:layout_constraintStart_toStartOf="parent"/>
+             </androidx.constraintlayout.widget.ConstraintLayout>
+         </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
