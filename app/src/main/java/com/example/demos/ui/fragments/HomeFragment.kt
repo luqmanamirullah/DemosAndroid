@@ -117,7 +117,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun rvDraftNews() = binding.rvDraftNews.apply {
-        draftNewsAdapter = DraftNewsAdapter()
+        draftNewsAdapter = DraftNewsAdapter(viewModel)
         adapter = draftNewsAdapter
         layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
     }

@@ -18,9 +18,8 @@ class HomeViewModel(
     val news: MutableLiveData<Resource<NewsLists>> = MutableLiveData()
     val newsType: MutableLiveData<Resource<NewsType>> = MutableLiveData()
     val searchMatch: MutableLiveData<Resource<NewsLists>> = MutableLiveData()
-    var type: String? = null
     init {
-        getNews(type)
+        getNews(null)
         getNewsType()
     }
 
