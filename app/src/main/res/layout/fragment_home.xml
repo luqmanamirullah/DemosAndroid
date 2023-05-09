@@ -205,13 +205,11 @@ DPR Puan Maharani"
             android:layout_marginHorizontal="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ctHighlighted">
-            <TextView
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDraftNews"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Draf News"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ctNewsLists"
