@@ -1,5 +1,6 @@
 package com.example.demos.ui.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.demos.databinding.ItemNewsListBinding
 import com.example.demos.models.news.News
+import com.example.demos.ui.ArticleActivity
 
 class NewsListsAdapter: RecyclerView.Adapter<NewsListsAdapter.NewsListsViewHolder>() {
     inner class NewsListsViewHolder(val binding: ItemNewsListBinding): RecyclerView.ViewHolder(binding.root)
@@ -40,6 +42,12 @@ class NewsListsAdapter: RecyclerView.Adapter<NewsListsAdapter.NewsListsViewHolde
                 tvTitle.text = news.title
                 tvPreText.text = news.content
                 tvCreatedAt.text = news.created_at
+
+                root.setOnClickListener {
+                    val intent = Intent(itemView.context, ArticleActivity::class.java)
+                    intent.putExtra("news_id", news.id)
+                    itemView.context.startActivity(intent)
+                }
             }
         }
     }
