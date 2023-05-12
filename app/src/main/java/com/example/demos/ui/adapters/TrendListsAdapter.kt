@@ -1,5 +1,6 @@
 package com.example.demos.ui.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demos.databinding.ItemTrendNewsBinding
 import com.example.demos.models.trending.Trend
+import com.example.demos.ui.ArticleActivity
 
 class TrendListsAdapter: RecyclerView.Adapter<TrendListsAdapter.TrendsListViewHolder>() {
     inner class TrendsListViewHolder(val binding: ItemTrendNewsBinding): RecyclerView.ViewHolder(binding.root)
@@ -45,6 +47,12 @@ class TrendListsAdapter: RecyclerView.Adapter<TrendListsAdapter.TrendsListViewHo
                 tvType.text = trend.type
                 tvTagline.text = trend.title
                 tvViews.text = trend.view.toString()
+
+                root.setOnClickListener {
+                    val intent = Intent(itemView.context, ArticleActivity::class.java)
+                    intent.putExtra("news_id", trend.id)
+                    itemView.context.startActivity(intent)
+                }
             }
         }
     }

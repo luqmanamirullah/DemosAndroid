@@ -37,22 +37,23 @@ class HomeFragment : Fragment() {
         viewModel = (activity as MainActivity).homeViewModel
 
         rvTrendLists()
-        lifecycleScope.launchWhenCreated {
-            val response = try {
-                RetrofitInstance.api.getTrends()
-            } catch (e: IOException){
-                Log.e("@MainActivity", "IOException, you might not have internet")
-                return@launchWhenCreated
-            } catch (e: HttpException){
-                Log.e("@MainActivity", "HttpException, unexpected response")
-                return@launchWhenCreated
+        viewModel.trends.observe(viewLifecycleOwner, Observer { response ->
+            when(response){
+                is Resource.Success -> {
+                    response.data?.let { trendsResponse ->
+                        trendListsAdapter.trendLists = trendsResponse.data
+                    }
+                }
+                is Resource.Error -> {
+                    response.message?.let { message ->
+                        Log.e("TrendingLists", "An error occured: $message")
+                    }
+                }
+                else -> {
+                    Log.e("Unknown", "Error")
+                }
             }
-            if (response.isSuccessful && response.body() !== null){
-                trendListsAdapter.trendLists = response.body()!!.data
-            } else {
-                Log.e("@MainActivity", "Response not successful")
-            }
-        }
+        })
 
         rvNewsLists()
         viewModel.news.observe(viewLifecycleOwner, Observer { response ->

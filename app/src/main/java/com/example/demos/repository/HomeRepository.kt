@@ -6,6 +6,8 @@ import com.example.demos.database.NewsDatabase
 class HomeRepository(
     val db: NewsDatabase
 ) {
+    suspend fun getTrendLists() =
+        RetrofitInstance.api.getTrends()
     suspend fun getNews(newsType: String?) =
         RetrofitInstance.api.getNews(newsType)
 
