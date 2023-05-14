@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:shimmer_auto_start="true"
+    app:shimmer_direction="left_to_right"
+    app:shimmer_shape="linear"
+    app:shimmer_repeat_count="@integer/material_motion_duration_short_1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivPicture"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_placeholder"
+            app:shapeAppearanceOverlay="@style/rounded_lg_white" />
+
+        <View
+            android:id="@+id/tvTitle"
+            android:layout_width="120pt"
+            android:layout_height="15dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/ivPicture"
+            android:background="@color/gray_500"/>
+
+        <View
+            android:id="@+id/tvPreText"
+            android:layout_width="300dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="16dp"
+            android:layout_below="@+id/tvTitle"
+            android:layout_toEndOf="@+id/ivPicture"
+            android:background="@color/gray_500"/>
+        <View
+            android:id="@+id/tvCreatedAt"
+            android:layout_width="100dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"
+            android:layout_below="@+id/tvPreText"
+            android:layout_toEndOf="@+id/ivPicture"
+            android:background="@color/gray_500"/>
+    </RelativeLayout>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

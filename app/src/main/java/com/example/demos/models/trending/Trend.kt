@@ -5,5 +5,5 @@ data class Trend(
     val id: Int,
     val title: String,
     val type: String,
-    val view: String
+    val view: String,
 )

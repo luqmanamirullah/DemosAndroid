@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shimmerContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:shimmer_auto_start="true"
+    app:shimmer_direction="left_to_right"
+    app:shimmer_shape="linear"
+    app:shimmer_repeat_count="@integer/material_motion_duration_short_1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp">
+        <LinearLayout
+            android:id="@+id/headlineContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:id="@+id/tvType"
+                android:layout_width="50dp"
+                android:layout_height="10dp"
+                android:background="@color/gray_500"
+                />
+            <View
+                android:id="@+id/tvTagline"
+                android:layout_width="150pt"
+                android:layout_height="15dp"
+                android:layout_marginVertical="5dp"
+                android:background="@color/gray_500"/>
+
+            <View
+                android:id="@+id/tvViews"
+                android:layout_width="100dp"
+                android:layout_height="12dp"
+                android:background="@color/gray_500"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/icMore"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_elipsis"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/headlineContainer"
+            android:background="@color/gray_200"/>
+    </RelativeLayout>
+
+</com.facebook.shimmer.ShimmerFrameLayout>
+
+
+

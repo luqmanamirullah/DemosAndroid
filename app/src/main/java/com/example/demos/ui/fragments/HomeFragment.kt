@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demos.R
-import com.example.demos.api.RetrofitInstance
 import com.example.demos.databinding.ComponentSearchBinding
 import com.example.demos.databinding.FragmentHomeBinding
 import com.example.demos.ui.MainActivity
@@ -21,7 +19,7 @@ import com.example.demos.ui.adapters.NewsListsAdapter
 import com.example.demos.ui.adapters.TrendListsAdapter
 import com.example.demos.ui.viewmodels.HomeViewModel
 import com.example.demos.utils.Resource
-import retrofit2.HttpException
+import com.example.demos.utils.WrapContentLinearLayoutManager
 import retrofit2.Response
 import java.io.IOException
 
@@ -32,6 +30,7 @@ class HomeFragment : Fragment() {
     private lateinit var newsListsAdapter: NewsListsAdapter
     private lateinit var draftNewsAdapter: DraftNewsAdapter
     lateinit var viewModel: HomeViewModel
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).homeViewModel
@@ -41,13 +40,38 @@ class HomeFragment : Fragment() {
             when(response){
                 is Resource.Success -> {
                     response.data?.let { trendsResponse ->
-                        trendListsAdapter.trendLists = trendsResponse.data
+                        trendListsAdapter.differ.submitList(trendsResponse.data)
                     }
                 }
                 is Resource.Error -> {
                     response.message?.let { message ->
                         Log.e("TrendingLists", "An error occured: $message")
                     }
+                }
+                is Resource.Loading -> {
+                    trendListsAdapter.differ.submitList(emptyList())
+                }
+                else -> {
+                    Log.e("Unknown", "Error")
+                }
+            }
+        })
+
+        rvDraftNews()
+        viewModel.newsType.observe(viewLifecycleOwner, Observer { response ->
+            when(response){
+                is Resource.Success -> {
+                    response.data?.let { newsType ->
+                        draftNewsAdapter.differ.submitList(newsType.data)
+                    }
+                }
+                is Resource.Error -> {
+                    response.message?.let { message ->
+                        Log.e("News Type Data", "An error occured: $message")
+                    }
+                }
+                is Resource.Loading -> {
+                    draftNewsAdapter.differ.submitList(emptyList())
                 }
                 else -> {
                     Log.e("Unknown", "Error")
@@ -68,30 +92,15 @@ class HomeFragment : Fragment() {
                         Log.e("News Data", "An error occured: $message")
                     }
                 }
+                is Resource.Loading -> {
+                    newsListsAdapter.differ.submitList(emptyList())
+                }
                 else -> {
                     Log.e("Unknwon", "Error")
                 }
             }
         })
 
-        rvDraftNews()
-        viewModel.newsType.observe(viewLifecycleOwner, Observer { response ->
-            when(response){
-                is Resource.Success -> {
-                    response.data?.let { newsType ->
-                        draftNewsAdapter.differ.submitList(newsType.data)
-                    }
-                }
-                is Resource.Error -> {
-                    response.message?.let { message ->
-                        Log.e("News Type Data", "An error occured: $message")
-                    }
-                }
-                else -> {
-                    Log.e("Unknown", "Error")
-                }
-            }
-        })
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -108,18 +117,18 @@ class HomeFragment : Fragment() {
     private fun rvTrendLists() = binding.rvTrendLists.apply {
         trendListsAdapter = TrendListsAdapter()
         adapter = trendListsAdapter
-        layoutManager = LinearLayoutManager(requireContext())
+        layoutManager = WrapContentLinearLayoutManager(requireContext())
     }
 
     private fun rvNewsLists() = binding.rvNewsLists.apply {
         newsListsAdapter = NewsListsAdapter()
         adapter = newsListsAdapter
-        layoutManager = LinearLayoutManager(requireContext())
+        layoutManager = WrapContentLinearLayoutManager(requireContext())
     }
 
     private fun rvDraftNews() = binding.rvDraftNews.apply {
         draftNewsAdapter = DraftNewsAdapter(viewModel)
         adapter = draftNewsAdapter
-        layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        layoutManager = WrapContentLinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
     }
 }

@@ -8,23 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.demos.api.example.RetrofitInstance
 import com.example.demos.databinding.FragmentSearchBinding
 import com.example.demos.ui.MainActivity
-import com.example.demos.ui.adapters.ExampleAdapter
 import com.example.demos.ui.adapters.NewsListsAdapter
-import com.example.demos.ui.adapters.TrendListsAdapter
 import com.example.demos.ui.viewmodels.HomeViewModel
 import com.example.demos.utils.Constants
 import com.example.demos.utils.Resource
+import com.example.demos.utils.WrapContentLinearLayoutManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
@@ -79,7 +73,7 @@ class SearchFragment : Fragment() {
     private fun rvSearchResult() = binding.rvSearchResult.apply {
         newsListsAdapter = NewsListsAdapter()
         adapter = newsListsAdapter
-        layoutManager = LinearLayoutManager(requireContext())
+        layoutManager = WrapContentLinearLayoutManager(requireContext())
     }
 
 

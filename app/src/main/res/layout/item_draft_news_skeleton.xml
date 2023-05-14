@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shimmerContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:shimmer_auto_start="true"
+    app:shimmer_direction="left_to_right"
+    app:shimmer_shape="linear"
+    app:shimmer_repeat_count="@integer/material_motion_duration_short_1">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="70dp"
+        android:layout_height="14pt"
+        android:layout_marginEnd="10dp"
+        android:layout_marginVertical="2dp"
+        app:cardCornerRadius="20dp"
+        android:backgroundTint="@color/gray_500"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <TextView
+            android:id="@+id/tvDraftName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/gray_500"
+            android:textSize="16sp"/>
+    </androidx.cardview.widget.CardView>
+
+</com.facebook.shimmer.ShimmerFrameLayout>
