@@ -3,13 +3,14 @@ package com.example.demos.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.UnderlineSpan
 import android.widget.TextView
+import com.example.demos.LoadingDialog
 import com.example.demos.R
 import com.example.demos.databinding.ActivityLoginBinding
-import com.example.demos.databinding.ActivityMainBinding
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var txtForgetPassword: TextView
@@ -22,8 +23,15 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnLogin.setOnClickListener {
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            val loading = LoadingDialog(this)
+            loading.startLoading()
+            val handler = Handler()
+            handler.postDelayed({
+                    loading.isDismiss()
+
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            },1000)
         }
 
         // Initialize the TextView
@@ -49,3 +57,4 @@ class LoginActivity : AppCompatActivity() {
         txtSignUp.text = spannableString
     }
 }
+

@@ -33,7 +33,7 @@
             android:name=".ui.DetailProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.IntroActivity"
+            android:name=".ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
