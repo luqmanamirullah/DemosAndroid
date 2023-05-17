@@ -96,4 +96,7 @@ dependencies {
 
     // Material Design
     implementation 'com.google.android.material:material:1.2.0-alpha01'
+
+    //Google sign in
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
 }
