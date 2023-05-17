@@ -1,4 +1,4 @@
-package com.example.demos.models
+package com.example.demos.models.intro
 
 class IntroSlide (
     val title: String,

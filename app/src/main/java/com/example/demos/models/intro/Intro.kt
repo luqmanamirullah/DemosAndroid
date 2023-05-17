@@ -1,4 +1,4 @@
-package com.example.demos.models
+package com.example.demos.models.intro
 
 data class Intro (
     val title: String,
