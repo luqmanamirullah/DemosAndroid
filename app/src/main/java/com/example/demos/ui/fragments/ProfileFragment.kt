@@ -8,16 +8,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.demos.databinding.FragmentProfileBinding
-
+import com.example.demos.repository.LogoutRepository
 import com.example.demos.ui.*
-import com.example.demos.ui.viewmodels.LoginViewModel
+import com.example.demos.ui.components.LoadingDialog
+import com.example.demos.ui.viewmodels.LogoutViewModel
+import com.example.demos.ui.viewmodels.LogoutViewModelProviderFactory
+import com.example.demos.utils.Resource
 import com.example.demos.utils.SessionManager
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
-    private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,7 +78,9 @@ class ProfileFragment : Fragment() {
         builder.setMessage("Are you sure you want to log out?")
         builder.setPositiveButton("Yes") { dialogInterface, _ ->
             dialogInterface.dismiss()
-            logout()
+            lifecycleScope.launch {
+                logout()
+            }
         }
         builder.setNegativeButton("Cancel") { dialogInterface, _ ->
                 dialogInterface.dismiss()
@@ -81,9 +90,34 @@ class ProfileFragment : Fragment() {
         dialog.show()
     }
 
-    private fun logout() {
-        val intent = Intent (activity, LoginActivity::class.java)
-        activity?.startActivity(intent)
+    private fun showToast(message: String){
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+
+    private suspend fun logout() {
+        val logoutRepository = LogoutRepository()
+        val logoutViewModel = ViewModelProvider(viewModelStore, LogoutViewModelProviderFactory(logoutRepository))[LogoutViewModel::class.java]
+        val loading = LoadingDialog(requireActivity())
+        SessionManager.getToken(requireContext())?.let { logoutViewModel.logout(it) }
+        logoutViewModel.logoutResult.observe(viewLifecycleOwner, Observer {response ->
+            when(response){
+                is Resource.Success -> {
+                    SessionManager.clearData(requireContext())
+                    loading.isDismiss()
+                    showToast("${response.data?.message}")
+                    val intent = Intent (activity, LoginActivity::class.java)
+                    activity?.startActivity(intent)
+                }
+                is Resource.Error -> {
+                    loading.isDismiss()
+                    showToast("${response.message}")
+                }
+                is Resource.Loading -> {
+                    loading.startLoading()
+                }
+            }
+        })
     }
 
 }
