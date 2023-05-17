@@ -1,15 +1,25 @@
 package com.example.demos.api
 
+import com.example.demos.models.login.Login
+import com.example.demos.models.login.LoginRequest
 import com.example.demos.models.news.ArticleData
 import com.example.demos.models.news.NewsLists
 import com.example.demos.models.news.NewsType
 import com.example.demos.models.trending.TrendingLists
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Interface {
+
+    @POST("login")
+    suspend fun login(
+        @Body loginRequest: LoginRequest,
+    ): Response<Login>
+
     @GET("breakingNews")
     suspend fun getNews(
         @Query("type")
