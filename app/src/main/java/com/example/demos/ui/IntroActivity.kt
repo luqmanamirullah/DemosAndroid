@@ -1,19 +1,19 @@
 package com.example.demos.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
-import com.example.demos.models.IntroSlide
-import com.example.demos.ui.adapters.IntroSliderAdapter
 import com.example.demos.R
 import com.example.demos.databinding.ActivityIntroSliderBinding
-import com.example.demos.models.Intro
+import com.example.demos.models.intro.Intro
+import com.example.demos.models.intro.IntroSlide
+import com.example.demos.ui.adapters.IntroSliderAdapter
 import com.example.demos.utils.Constants
 
 private val intros = arrayOfNulls<Intro>(Constants.MAX_STEP)
@@ -44,11 +44,22 @@ class IntroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityIntroSliderBinding.inflate(layoutInflater)
         binding.introSliderViewPager.adapter = introSliderAdapter
-        setContentView(binding.root)
+        val isFirstRun: Boolean = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true)
+        if (!isFirstRun){
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        } else {
+            setContentView(binding.root)
+            initComponents()
+        }
+
+    }
+
+    private fun initComponents(){
         setupIndicators()
         setCurrentIndicator(0)
         binding.introSliderViewPager.registerOnPageChangeCallback(object :
-        ViewPager2.OnPageChangeCallback(){
+            ViewPager2.OnPageChangeCallback(){
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -59,13 +70,17 @@ class IntroActivity : AppCompatActivity() {
             if (binding.introSliderViewPager.currentItem + 1 < introSliderAdapter.itemCount) {
                 binding.introSliderViewPager.currentItem += 1
             } else {
-                intent = Intent(this, MainActivity::class.java)
+                getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                    .putBoolean("isFirstRun", false).commit()
+                intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         }
         binding.textSkipIntro.setOnClickListener{
-            intent = Intent(this, MainActivity::class.java)
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                .putBoolean("isFirstRun", false).commit()
+            intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
