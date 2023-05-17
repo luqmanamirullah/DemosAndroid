@@ -10,15 +10,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.demos.LoadingDialog
 import com.example.demos.R
 import com.example.demos.databinding.ActivityLoginBinding
 import com.example.demos.models.login.Login
 import com.example.demos.repository.LoginRepository
+import com.example.demos.ui.components.LoadingDialog
 import com.example.demos.ui.viewmodels.LoginViewModel
 import com.example.demos.ui.viewmodels.LoginViewModelProviderFactory
 import com.example.demos.utils.Resource
 import com.example.demos.utils.SessionManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -26,13 +29,17 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var txtSignUp: TextView
     lateinit var loginViewModel: LoginViewModel
     lateinit var binding: ActivityLoginBinding
-    private val loading = LoadingDialog(this)
+    private lateinit var gso: GoogleSignInOptions
+    private lateinit var gsc: GoogleSignInClient
 
+    private val loading = LoadingDialog(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+        gsc = GoogleSignIn.getClient(this, gso)
 
         val loginRepository = LoginRepository()
         loginViewModel = ViewModelProvider(this, LoginViewModelProviderFactory(loginRepository))[LoginViewModel::class.java]
@@ -95,7 +102,7 @@ class LoginActivity : AppCompatActivity() {
 
     private suspend fun login(){
         val email = binding.etEmail.text.toString()
-        val pwd = binding.etPassword.text.toString()
+        val pwd = binding.etPass.text.toString()
         loginViewModel.login(email, pwd)
     }
 
@@ -129,8 +136,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showToast(message: String){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-
-        return
     }
 
     private fun setUnderlineText1(text: String) {
