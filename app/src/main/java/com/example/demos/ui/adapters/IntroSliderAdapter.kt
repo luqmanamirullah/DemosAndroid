@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.demos.R
-import com.example.demos.models.IntroSlide
+import com.example.demos.models.intro.IntroSlide
 
 class IntroSliderAdapter (private val introSlides: List<IntroSlide>) :
     RecyclerView.Adapter<IntroSliderAdapter.IntroSliderViewHolder>() {
