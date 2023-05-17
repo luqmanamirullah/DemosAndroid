@@ -1,7 +1,8 @@
-package com.example.demos
+package com.example.demos.ui.components
 
 import android.app.Activity
 import android.app.AlertDialog
+import com.example.demos.R
 
 class LoadingDialog(val myActivty:Activity) {
     private lateinit var isdialog:AlertDialog
