@@ -18,8 +18,6 @@ import java.util.TimerTask
 
 class TrendListsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var skeletonTimer: Timer? = null
-    private val skeletonInterval: Long = 500L
 
     inner class TrendsListViewHolder(val binding: ItemTrendNewsBinding) :
         RecyclerView.ViewHolder(binding.root)

@@ -12,6 +12,7 @@ import com.example.demos.databinding.ActivityMainBinding
 import com.example.demos.repository.HomeRepository
 import com.example.demos.ui.viewmodels.HomeViewModel
 import com.example.demos.ui.viewmodels.HomeViewModelProviderFactory
+import com.example.demos.ui.viewmodels.LoginViewModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
