@@ -51,8 +51,8 @@ class ProfileFragment : Fragment() {
             requireActivity().onBackPressed()
         }
         binding.btnEdit.setOnClickListener {
-            val intent = Intent (activity, DetailProfileActivity::class.java)
-            activity?.startActivity(intent)
+            val intent = Intent (requireActivity(), DetailProfileActivity::class.java)
+            requireActivity().startActivity(intent)
         }
 
         binding.btnInformation.setOnClickListener{
@@ -68,7 +68,6 @@ class ProfileFragment : Fragment() {
         binding.btnLogout.setOnClickListener{
             showLogoutDialog()
         }
-
         return binding.root
     }
 

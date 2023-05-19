@@ -1,5 +1,6 @@
 package com.example.demos.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.demos.R
@@ -14,5 +15,20 @@ class InformationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_information)
         binding = ActivityInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
+        binding.btnOK.setOnClickListener {
+            intent = Intent (this, MainActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+    }
+    override fun onBackPressed() {
+        val mainActivity = Intent(this, MainActivity::class.java)
+        mainActivity.putExtra("openFragmentProfile", true)
+        startActivity(mainActivity)
+        finish()
     }
 }
