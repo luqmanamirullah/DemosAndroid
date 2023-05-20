@@ -13,15 +13,19 @@ class DetailProfileActivity : AppCompatActivity() {
         binding = ActivityDetailProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnBack.setOnClickListener {
-            intent = Intent (this, MainActivity::class.java).also {
-                startActivity(it)
-            }
+            onBackPressed()
         }
         binding.btnSave.setOnClickListener {
             onBackPressed().also {
                 Toast.makeText(this, "Profile Saved",Toast.LENGTH_SHORT).show()
             }
         }
+    }
+    override fun onBackPressed() {
+        val mainActivity = Intent(this, MainActivity::class.java)
+        mainActivity.putExtra("openFragmentProfile", true)
+        startActivity(mainActivity)
+        finish()
     }
 
 }

@@ -31,7 +31,7 @@
                    android:id="@+id/search_icon"
                    android:layout_width="14pt"
                    android:layout_height="14pt"
-                   android:src="@drawable/ic_notification"
+                   android:src="@drawable/ic_notifications"
                    android:contentDescription="@string/search_hint"
                    android:clickable="false"
                    android:focusable="false"
