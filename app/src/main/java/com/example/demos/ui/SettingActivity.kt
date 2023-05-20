@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.example.demos.R
 import com.example.demos.databinding.ActivitySettingBinding
-import androidx.fragment.app.Fragment
 
 class SettingActivity : AppCompatActivity() {
     lateinit var binding: ActivitySettingBinding
@@ -30,11 +29,22 @@ class SettingActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        binding.btnEditProfile.setOnClickListener {
+            val intent = Intent(this, DetailProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnChangePassword.setOnClickListener {
+            intent = Intent(this, ChangePasswordActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+
         binding.notif.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 showNotification(
-                    "Kontol",
-                    "Kami mendapatkan informasi terkait pengguna bahwa kamu adalah kontol"
+                    "Demos Notification",
+                    "Notification is active!"
                 )
                 showToast("Notification is on")
             } else {

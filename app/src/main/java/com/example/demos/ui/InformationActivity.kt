@@ -20,9 +20,7 @@ class InformationActivity : AppCompatActivity() {
             onBackPressed()
         }
         binding.btnOK.setOnClickListener {
-            intent = Intent (this, MainActivity::class.java).also {
-                startActivity(it)
-            }
+            onBackPressed()
         }
     }
     override fun onBackPressed() {

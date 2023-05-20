@@ -69,11 +69,14 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-
         binding.btnLogin.setOnClickListener {
             lifecycleScope.launch {
                 login()
             }
+        }
+        binding.txtForgotPassword.setOnClickListener {
+            intent = Intent(this, ForgotPassword::class.java)
+            startActivity(intent)
         }
 
         binding.txtSignUp.setOnClickListener {
