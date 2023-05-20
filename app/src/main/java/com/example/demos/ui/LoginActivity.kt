@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -17,11 +18,9 @@ import com.example.demos.repository.LoginRepository
 import com.example.demos.ui.components.LoadingDialog
 import com.example.demos.ui.viewmodels.LoginViewModel
 import com.example.demos.ui.viewmodels.LoginViewModelProviderFactory
+import com.example.demos.utils.GoogleSignInHelper
 import com.example.demos.utils.Resource
 import com.example.demos.utils.SessionManager
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -29,17 +28,17 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var txtSignUp: TextView
     lateinit var loginViewModel: LoginViewModel
     lateinit var binding: ActivityLoginBinding
-    private lateinit var gso: GoogleSignInOptions
-    private lateinit var gsc: GoogleSignInClient
+
+    private val RC_SIGN_IN = 123
+    private val googleSignInHelper by lazy {
+        GoogleSignInHelper(this, RC_SIGN_IN)
+    }
 
     private val loading = LoadingDialog(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
-        gsc = GoogleSignIn.getClient(this, gso)
 
         val loginRepository = LoginRepository()
         loginViewModel = ViewModelProvider(this, LoginViewModelProviderFactory(loginRepository))[LoginViewModel::class.java]
@@ -53,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
             when(it){
                 is Resource.Success -> {
                     stopLoading()
-                    it.data?.let { data -> SessionManager.saveCurrentUser(this, data.data) }
+                    it.data?.let { res -> SessionManager.saveCurrentUser(this, res.data) }
                     processLogin(it.data)
                 }
                 is Resource.Error -> {
@@ -80,6 +79,9 @@ class LoginActivity : AppCompatActivity() {
             register()
         }
 
+        binding.btnGoogle.setOnClickListener {
+            googleSignInHelper.login()
+        }
 
         // Initialize the TextView
         txtForgetPassword = findViewById(R.id.txtForgotPassword)
@@ -90,6 +92,21 @@ class LoginActivity : AppCompatActivity() {
         setUnderlineText2("Sign Up")
 
         return
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN){
+            val account = googleSignInHelper.handleSignInResult(data)
+            Log.e("Login Google", "${account}")
+            if (account !== null){
+                lifecycleScope.launch {
+                    loginViewModel.loginGoogle(account.email, account.id, account.displayName, account.photoUrl.toString())
+                }
+            } else {
+                showToast("Sign in with google is failed")
+            }
+        }
     }
 
     private fun navigateToHome(){
