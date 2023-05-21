@@ -29,17 +29,26 @@
         android:name="com.example.demos.ui.fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search"
-        app:defaultNavHost="false"/>
+        app:defaultNavHost="false">
+
+    </fragment>
     <fragment
         android:id="@+id/govermentPolicyFragment"
         android:name="com.example.demos.ui.fragments.GovermentPolicyFragment"
         android:label="fragment_govermentpolicy"
         tools:layout="@layout/fragment_govermentpolicy"
-        app:defaultNavHost="false"/>
+>
+        <action
+            android:id="@+id/action_govermentPolicyFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.demos.ui.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile"
-        app:defaultNavHost="false"/>
+        app:defaultNavHost="false">
+
+    </fragment>
 </navigation>
