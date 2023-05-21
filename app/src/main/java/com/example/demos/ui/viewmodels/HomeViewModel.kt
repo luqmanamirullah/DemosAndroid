@@ -1,10 +1,13 @@
 package com.example.demos.ui.viewmodels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.demos.models.news.NewsLists
 import com.example.demos.models.news.NewsType
+import com.example.demos.models.search.Everythings
 import com.example.demos.models.trending.TrendingLists
 import com.example.demos.repository.HomeRepository
 import com.example.demos.utils.Resource
@@ -13,13 +16,14 @@ import retrofit2.Response
 
 
 class HomeViewModel(
-    val homeRepository: HomeRepository
-): ViewModel() {
+    val homeRepository: HomeRepository,
+    application: Application,
+): AndroidViewModel(application) {
 
     val trends: MutableLiveData<Resource<TrendingLists>> = MutableLiveData();
     val news: MutableLiveData<Resource<NewsLists>> = MutableLiveData()
     val newsType: MutableLiveData<Resource<NewsType>> = MutableLiveData()
-    val searchMatch: MutableLiveData<Resource<NewsLists>> = MutableLiveData()
+    val searchMatch: MutableLiveData<Resource<Everythings>> = MutableLiveData()
     init {
         getTrendingLists()
         getNews(null)
@@ -76,7 +80,7 @@ class HomeViewModel(
         }
         return Resource.Error(response.message())
     }
-    private fun handleSearch(response: Response<NewsLists>): Resource<NewsLists>{
+    private fun handleSearch(response: Response<Everythings>): Resource<Everythings>{
         if (response.isSuccessful){
             response.body()?.let { res ->
                 return Resource.Success(res)
