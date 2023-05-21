@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.example.demos.databinding.ActivityChangePasswordBinding
 import com.example.demos.databinding.ActivityForgotPasswordBinding
 
-class ForgotPassword : AppCompatActivity() {
+class ForgotPasswordActivity: AppCompatActivity() {
     lateinit var binding: ActivityForgotPasswordBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
