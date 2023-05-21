@@ -1,6 +1,7 @@
 package com.example.demos.ui
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.demos.R
@@ -9,6 +10,7 @@ import com.example.demos.databinding.ActivityMainBinding
 
 class InformationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInformationBinding
+    private var selectedImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +26,11 @@ class InformationActivity : AppCompatActivity() {
         }
     }
     override fun onBackPressed() {
-        val mainActivity = Intent(this, MainActivity::class.java)
-        mainActivity.putExtra("openFragmentProfile", true)
-        startActivity(mainActivity)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        intent.putExtra("openFragmentProfile", true)
+        intent.putExtra("profileImageUri", selectedImageUri)
+        startActivity(intent)
         finish()
     }
 }

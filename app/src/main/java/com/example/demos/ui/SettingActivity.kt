@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,7 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var notificationManager: NotificationManager
     private val channelId = "DemoChannelId"
     private val channelName = "DemoChannel"
+    private var selectedImageUri: Uri? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
@@ -58,9 +60,11 @@ class SettingActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val mainActivity = Intent(this, MainActivity::class.java)
-        mainActivity.putExtra("openFragmentProfile", true)
-        startActivity(mainActivity)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        intent.putExtra("openFragmentProfile", true)
+        intent.putExtra("profileImageUri", selectedImageUri)
+        startActivity(intent)
         finish()
     }
 

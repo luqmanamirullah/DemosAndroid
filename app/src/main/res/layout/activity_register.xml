@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textSize="35sp"/>
+
+    <TextView
+        android:id="@+id/txtUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Username"
+        android:layout_marginTop="50dp"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_below="@id/txtSignUp"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tlUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/white"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:hintTextColor="@android:color/transparent"
+        android:layout_below="@id/txtUsername">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Email"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_below="@id/tlUsername"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tlEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/white"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:hintTextColor="@android:color/transparent"
+        android:layout_below="@id/txtEmail">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Password"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_below="@id/tlEmail"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tlPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/white"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:hintTextColor="@android:color/transparent"
+        android:layout_below="@id/txtPassword">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/txtConfirmPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Confirm Password"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_below="@id/tlPassword"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tlConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/white"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:hintTextColor="@android:color/transparent"
+        android:layout_below="@id/txtConfirmPassword">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="110dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_btn2"
+        android:padding="0dp"
+        android:text="Sign In"
+        android:layout_marginHorizontal="20dp"
+        android:textAllCaps="false"
+        android:layout_below="@id/tlConfirmPassword"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>
