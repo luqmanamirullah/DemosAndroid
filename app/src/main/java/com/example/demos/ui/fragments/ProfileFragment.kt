@@ -50,7 +50,7 @@ class ProfileFragment : Fragment() {
                 tvEmail.text = it.user_email
             }
 
-            Glide.with(this).load(it.user_picture).into(binding.ivPhotoProfile)
+            Glide.with(this).load(it.user_photo).into(binding.ivPhotoProfile)
         }
 
         binding.btnBack.setOnClickListener {
