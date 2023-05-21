@@ -11,3 +11,10 @@ data class LoginRequest(
     val user_email : String,
     val password: String
 )
+
+data class LoginGoogleRequest(
+    val account_email: String?,
+    val account_id: String?,
+    val account_name: String?,
+    val account_photo: String?
+)

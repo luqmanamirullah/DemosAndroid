@@ -23,6 +23,12 @@ class LoginViewModel(
         loginResult.postValue(handleLogin(response))
     }
 
+    suspend fun loginGoogle(accountEmail: String?, accountId: String?, accountName: String?, accountPhoto: String?){
+        loginResult.postValue(Resource.Loading())
+        val response = loginRepository.loginGoogle(accountEmail, accountId, accountName,  accountPhoto)
+        loginResult.postValue(handleLogin(response))
+    }
+
     private fun handleLogin(response: Response<Login>): Resource<Login>{
         if (response.isSuccessful){
             response.body()?.let { res ->

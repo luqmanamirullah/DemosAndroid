@@ -2,6 +2,7 @@ package com.example.demos.api
 
 import com.example.demos.models.Logout
 import com.example.demos.models.login.Login
+import com.example.demos.models.login.LoginGoogleRequest
 import com.example.demos.models.login.LoginRequest
 import com.example.demos.models.news.ArticleData
 import com.example.demos.models.news.NewsLists
@@ -20,6 +21,11 @@ interface Interface {
     @POST("login")
     suspend fun login(
         @Body loginRequest: LoginRequest,
+    ): Response<Login>
+
+    @POST("login-google")
+    suspend fun loginGoogle(
+        @Body loginRequest: LoginGoogleRequest,
     ): Response<Login>
 
     @POST("logout")
