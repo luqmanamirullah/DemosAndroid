@@ -28,7 +28,7 @@ class ChangePasswordActivity : AppCompatActivity() {
             }
         }
         binding.txtForgotPassword.setOnClickListener {
-            intent = Intent(this, ForgotPassword::class.java)
+            intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
         }
 
