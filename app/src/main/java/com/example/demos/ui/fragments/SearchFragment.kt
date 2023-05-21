@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.example.demos.databinding.FragmentSearchBinding
 import com.example.demos.ui.MainActivity
 import com.example.demos.ui.adapters.NewsListsAdapter
+import com.example.demos.ui.adapters.PolicyListsAdapter
 import com.example.demos.ui.viewmodels.HomeViewModel
 import com.example.demos.utils.Constants
 import com.example.demos.utils.Resource
@@ -23,6 +24,7 @@ import kotlinx.coroutines.launch
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var newsListsAdapter: NewsListsAdapter
+    private lateinit var policyListsAdapter: PolicyListsAdapter
     lateinit var viewModel: HomeViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +34,8 @@ class SearchFragment : Fragment() {
         viewModel = (activity as MainActivity).homeViewModel
         Log.d("SearchFragment", "this is search fragment")
 
-        rvSearchResult()
+        rvNewsResult()
+        rvPolicyResult()
         viewModel.search("")
         var job: Job? = null
         binding.etSearch.addTextChangedListener{editable ->
@@ -49,11 +52,23 @@ class SearchFragment : Fragment() {
             }
         }
 
+
         viewModel.searchMatch.observe(viewLifecycleOwner, Observer { response ->
             when(response){
                 is Resource.Success -> {
-                    response.data?.let { newsResponse ->
-                        newsListsAdapter.differ.submitList(newsResponse.data)
+                    response.data?.let { res ->
+                        if (res.news.isNullOrEmpty()){
+                            binding.rvNewsResult.visibility = View.GONE
+                        } else {
+                            binding.rvNewsResult.visibility = View.VISIBLE
+                            newsListsAdapter.differ.submitList(res.news)
+                        }
+                        if (res.policy.isNullOrEmpty()){
+                            binding.rvPolicyResult.visibility = View.GONE
+                        } else {
+                            binding.rvPolicyResult.visibility = View.VISIBLE
+                            policyListsAdapter.differ.submitList(res.policy)
+                        }
                     }
                 }
                 is Resource.Error -> {
@@ -70,9 +85,15 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
-    private fun rvSearchResult() = binding.rvSearchResult.apply {
+    private fun rvNewsResult() = binding.rvNewsResult.apply {
         newsListsAdapter = NewsListsAdapter()
         adapter = newsListsAdapter
+        layoutManager = WrapContentLinearLayoutManager(requireContext())
+    }
+
+    private fun rvPolicyResult() = binding.rvPolicyResult.apply {
+        policyListsAdapter = PolicyListsAdapter()
+        adapter = policyListsAdapter
         layoutManager = WrapContentLinearLayoutManager(requireContext())
     }
 
