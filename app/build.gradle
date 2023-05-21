@@ -19,6 +19,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildTypes {
         release {
             minifyEnabled false
@@ -36,6 +37,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
     }
 }
 
@@ -99,4 +103,8 @@ dependencies {
 
     //Google sign in
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
+
+    //Get pdf cover
+    implementation 'org.apache.pdfbox:pdfbox:2.0.27'
+
 }
