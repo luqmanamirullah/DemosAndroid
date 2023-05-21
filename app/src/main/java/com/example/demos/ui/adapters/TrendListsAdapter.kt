@@ -47,15 +47,15 @@ class TrendListsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Trend>() {
-        override fun areItemsTheSame(oldItem: Trend, newItem: Trend): Boolean {
-            return oldItem.id == newItem.id
-        }
+        private val diffCallback = object : DiffUtil.ItemCallback<Trend>() {
+            override fun areItemsTheSame(oldItem: Trend, newItem: Trend): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(oldItem: Trend, newItem: Trend): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: Trend, newItem: Trend): Boolean {
+                return oldItem == newItem
+            }
         }
-    }
 
     val differ = AsyncListDiffer(this, diffCallback)
 
