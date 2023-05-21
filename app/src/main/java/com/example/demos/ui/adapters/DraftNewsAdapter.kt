@@ -117,7 +117,7 @@ class DraftNewsAdapter(private val viewModel: HomeViewModel): RecyclerView.Adapt
         }
     }
     override fun getItemCount(): Int = if (differ.currentList.isEmpty()){
-        1
+        3
     } else {
         differ.currentList.size
     }
