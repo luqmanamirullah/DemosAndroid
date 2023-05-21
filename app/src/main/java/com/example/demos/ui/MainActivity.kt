@@ -12,14 +12,14 @@ import com.example.demos.R
 import com.example.demos.database.NewsDatabase
 import com.example.demos.databinding.ActivityMainBinding
 import com.example.demos.repository.HomeRepository
+import com.example.demos.repository.PolicyRepository
 import com.example.demos.ui.fragments.ProfileFragment
-import com.example.demos.ui.viewmodels.HomeViewModel
-import com.example.demos.ui.viewmodels.HomeViewModelProviderFactory
-import com.example.demos.ui.viewmodels.LoginViewModel
+import com.example.demos.ui.viewmodels.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var homeViewModel: HomeViewModel
+    lateinit var policyViewModel: PolicyViewModel
     private val REQUEST_IMAGE_GALLERY = 1
     private var selectedImageUri: Uri? = null
 
@@ -29,28 +29,34 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
 
-        val homeRepository = HomeRepository(NewsDatabase(this))
+        val homeRepository = HomeRepository()
         homeViewModel = ViewModelProvider(
             this,
-            HomeViewModelProviderFactory(homeRepository)
+            HomeViewModelProviderFactory(homeRepository, application)
         )[HomeViewModel::class.java]
+
+        val policyRepository  = PolicyRepository()
+        policyViewModel = ViewModelProvider(
+            this,
+            PolicyViewModelProviderFactory(policyRepository)
+        )[PolicyViewModel::class.java]
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navController = findNavController(R.id.frActivity)
         binding.bottomNavigationView.setupWithNavController(navController)
 
+        val openFragementPolicy = intent.getBooleanExtra("openFragmentPolicy", false)
         val openFragmentProfile = intent.getBooleanExtra("openFragmentProfile", false)
+        val openFragmentHome = intent.getBooleanExtra("openFragmentHome", false)
+
         if (openFragmentProfile) {
             navController.navigate(R.id.profileFragment)
         }
-    }
-    private fun openProfileFragment() {
-        val fragmentProfile = ProfileFragment()
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.flFragment, fragmentProfile)
-            .commit()
+        if (openFragementPolicy){
+            navController.navigate(R.id.govermentPolicyFragment)
+        }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -61,12 +67,12 @@ class MainActivity : AppCompatActivity() {
             profileFragment?.updateProfilePhoto(selectedImageUri)
         }
     }
-    override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-        intent.putExtra("openFragmentProfile", true)
-        intent.putExtra("profileImageUri", selectedImageUri)
-        startActivity(intent)
-        finish()
-    }
+//    override fun onBackPressed() {
+//        val intent = Intent(this, MainActivity::class.java)
+//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+//        intent.putExtra("openFragmentProfile", true)
+//        intent.putExtra("profileImageUri", selectedImageUri)
+//        startActivity(intent)
+//        finish()
+//    }
 }

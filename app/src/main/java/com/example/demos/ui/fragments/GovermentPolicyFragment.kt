@@ -1,60 +1,79 @@
 package com.example.demos.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.demos.R
+import com.example.demos.databinding.ComponentSearchBinding
+import com.example.demos.databinding.FragmentGovermentpolicyBinding
+import com.example.demos.databinding.FragmentHomeBinding
+import com.example.demos.repository.PolicyRepository
+import com.example.demos.ui.MainActivity
+import com.example.demos.ui.adapters.PolicyListsAdapter
+import com.example.demos.ui.viewmodels.PolicyViewModel
+import com.example.demos.utils.Resource
+import com.example.demos.utils.SessionManager
+import com.example.demos.utils.WrapContentLinearLayoutManager
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [GovermentPolicyFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class GovermentPolicyFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var policyListsAdapter: PolicyListsAdapter
+    private lateinit var binding: FragmentGovermentpolicyBinding
+    lateinit var viewModel: PolicyViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = (activity as MainActivity).policyViewModel
+        SessionManager.getToken(requireContext())?.let {
+            lifecycleScope.launch {
+                viewModel.getPolicies(it)
+            }
         }
+        rvPolicies()
+        viewModel.policies.observe(viewLifecycleOwner, Observer { response ->
+            when(response){
+                is Resource.Success -> {
+                    response.data?.let {
+                        policyListsAdapter.differ.submitList(it.data)
+                    }
+                }
+                is Resource.Error -> {
+                    response.message?.let {
+                        Log.e("Policy Fragment", it)
+                    }
+                }
+                is Resource.Loading -> {
+                    policyListsAdapter.differ.submitList(emptyList())
+                }
+            }
+        })
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_govermentpolicy, container, false)
+        binding = FragmentGovermentpolicyBinding.inflate(inflater, container, false)
+        val searchComponentBinding = ComponentSearchBinding.bind(binding.root.findViewById(R.id.search_component))
+        searchComponentBinding.searchComponent.setOnClickListener {
+            val action = GovermentPolicyFragmentDirections.actionGovermentPolicyFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment KebijakanFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GovermentPolicyFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun rvPolicies() = binding.rvPolicies.apply{
+        policyListsAdapter = PolicyListsAdapter()
+        adapter = policyListsAdapter
+        layoutManager = WrapContentLinearLayoutManager(requireContext())
     }
 }
