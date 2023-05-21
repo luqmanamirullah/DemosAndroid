@@ -15,6 +15,8 @@ class Constants {
         const val USER_PICTURE = "photoProfile"
         const val USER_CREATED_AT = "createdAt"
         const val USER_UPDATED_AT = "updatedAt"
+        const val USER_PHONE = "phone"
+        const val USER_BIO = "bio"
         const val GOOGLE_SIGN_IN = "GoogleSignInHelper"
     }
 }

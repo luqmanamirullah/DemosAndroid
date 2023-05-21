@@ -14,6 +14,8 @@ object SessionManager {
             user_email = getString(context, Constants.USER_EMAIL),
             user_verify = getInteger(context, Constants.USER_VERIFY),
             user_photo = getString(context, Constants.USER_PICTURE),
+            user_phone = getString(context, Constants.USER_PHONE),
+            user_bio = getString(context, Constants.USER_BIO),
             created_at = getString(context, Constants.USER_CREATED_AT),
             updated_at = getString(context, Constants.USER_UPDATED_AT)
         )
@@ -32,6 +34,8 @@ object SessionManager {
         saveString(context, Constants.USER_EMAIL, user.user_email)
         saveInteger(context, Constants.USER_VERIFY, user.user_verify)
         saveString(context, Constants.USER_PICTURE, user.user_photo)
+        saveString(context, Constants.USER_PHONE, user.user_phone)
+        saveString(context, Constants.USER_BIO, user.user_bio)
         saveString(context, Constants.USER_CREATED_AT, user.created_at)
         user.updated_at?.let {
             saveString(context, Constants.USER_UPDATED_AT, user.updated_at)

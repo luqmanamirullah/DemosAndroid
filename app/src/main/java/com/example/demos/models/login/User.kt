@@ -7,5 +7,7 @@ data class User(
     val user_email: String?,
     val user_name: String?,
     val user_verify: Int,
-    val user_photo: String?
+    val user_photo: String?,
+    val user_bio: String?,
+    val user_phone: String?
 )
