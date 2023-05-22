@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val policyRepository  = PolicyRepository()
         policyViewModel = ViewModelProvider(
             this,
-            PolicyViewModelProviderFactory(policyRepository)
+            PolicyViewModelProviderFactory(policyRepository, application)
         )[PolicyViewModel::class.java]
 
         binding = ActivityMainBinding.inflate(layoutInflater)

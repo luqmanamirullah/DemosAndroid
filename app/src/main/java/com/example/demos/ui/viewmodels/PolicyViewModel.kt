@@ -1,8 +1,11 @@
 package com.example.demos.ui.viewmodels
 
+import android.app.Application
 import android.content.Context
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.demos.models.opinion.CreateOpinion
 import com.example.demos.models.opinion.Opinions
 import com.example.demos.models.policy.DetailsPolicyLists
@@ -12,18 +15,28 @@ import com.example.demos.models.policy.PolicyFile
 import com.example.demos.repository.PolicyRepository
 import com.example.demos.utils.Resource
 import com.example.demos.utils.SessionManager
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
 
 class PolicyViewModel(
-    val policyRepository: PolicyRepository
-): ViewModel() {
+    val policyRepository: PolicyRepository,
+    application: Application
+): AndroidViewModel(application) {
 
     val policies: MutableLiveData<Resource<Policies>> = MutableLiveData()
     val detailsPolicy: MutableLiveData<Resource<DetailsPolicyLists>> = MutableLiveData()
     val file: MutableLiveData<Resource<PolicyFile>> = MutableLiveData()
     val opinions: MutableLiveData<Resource<Opinions>> = MutableLiveData()
     val createOpinionsResult: MutableLiveData<Resource<CreateOpinion>> = MutableLiveData()
+    init {
+        viewModelScope.launch {
+            SessionManager.getToken(application.applicationContext)?.let {
+                getPolicies(it)
+            }
+        }
+    }
+
 
     suspend fun getPolicies(token: String){
         policies.postValue(Resource.Loading())

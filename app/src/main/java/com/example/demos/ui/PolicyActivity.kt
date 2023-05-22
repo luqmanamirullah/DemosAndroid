@@ -44,7 +44,7 @@ class PolicyActivity : AppCompatActivity() {
         val policyRepository = PolicyRepository()
         policyViewModel = ViewModelProvider(
             this,
-            PolicyViewModelProviderFactory(policyRepository)
+            PolicyViewModelProviderFactory(policyRepository, application)
         )[PolicyViewModel::class.java]
 
         val id = intent.getIntExtra("policy_id", -1)
