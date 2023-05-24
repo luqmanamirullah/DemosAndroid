@@ -21,6 +21,23 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+    private val newsRetrofit by lazy {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+
+        Retrofit.Builder()
+            .baseUrl(Constants.NEWS_API)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+    val newsApi: Interface2 by lazy {
+        newsRetrofit.create(Interface2::class.java)
+    }
 
     val api: Interface by lazy {
         retrofit.create(Interface::class.java)

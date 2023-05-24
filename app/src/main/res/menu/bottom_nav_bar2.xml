@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="News"
+        android:id="@+id/newsFragment"
+        android:icon="@drawable/home_selector"/>
+    <item android:title="Search"
+        android:id="@+id/searchNewsFragment"
+        android:icon="@drawable/search_selector"/>
+    <item android:title="Favorit"
+        android:id="@+id/saveNewsFragment2"
+        android:icon="@drawable/govermentpolicy_selector"/>
+</menu>

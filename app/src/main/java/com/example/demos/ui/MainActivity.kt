@@ -12,6 +12,7 @@ import com.example.demos.R
 import com.example.demos.database.NewsDatabase
 import com.example.demos.databinding.ActivityMainBinding
 import com.example.demos.repository.HomeRepository
+import com.example.demos.repository.NewsRepository
 import com.example.demos.repository.PolicyRepository
 import com.example.demos.ui.fragments.ProfileFragment
 import com.example.demos.ui.viewmodels.*
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var homeViewModel: HomeViewModel
     lateinit var policyViewModel: PolicyViewModel
+    lateinit var newsViewModel: NewsViewModel
     private val REQUEST_IMAGE_GALLERY = 1
     private var selectedImageUri: Uri? = null
 
@@ -40,6 +42,12 @@ class MainActivity : AppCompatActivity() {
             this,
             PolicyViewModelProviderFactory(policyRepository, application)
         )[PolicyViewModel::class.java]
+
+        val newsRepository = NewsRepository(NewsDatabase(this))
+        newsViewModel = ViewModelProvider(
+            this,
+            NewsViewModelProviderFactory(newsRepository)
+        )[NewsViewModel::class.java]
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
