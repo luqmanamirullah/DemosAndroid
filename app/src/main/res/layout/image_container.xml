@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivPicture"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_placeholder"
+        app:shapeAppearanceOverlay="@style/rounded_xl_white" />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Title"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/bg_rounded2"
+        android:layout_alignTop="@+id/ivPicture"
+        android:layout_marginStart="@id/ivPicture"/>
+
+    <TextView
+        android:id="@+id/txtDescripton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Description"
+        android:layout_marginEnd="@id/ivPicture"
+        android:layout_alignBottom="@+id/ivPicture"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"/>
+
+</RelativeLayout>
