@@ -1,6 +1,7 @@
 package com.example.demos.ui.fragments
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,6 +25,9 @@ class NewsFragment : Fragment() {
     lateinit var viewModel: NewsViewModel
     lateinit var imageNewsAdapter: ImageNewsAdapter
 
+    private lateinit var handler: Handler
+    private lateinit var autoScrollRunnable: Runnable
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,7 +41,7 @@ class NewsFragment : Fragment() {
         binding = FragmentNewsBinding.inflate(layoutInflater)
         viewModel = (activity as MainActivity).newsViewModel
         imageNewsAdapter = ImageNewsAdapter(binding.viewPager)
-
+        handler = Handler()
 
         viewModel.getNews("top")
         viewModel.news.observe(viewLifecycleOwner, Observer {response ->
@@ -45,14 +49,20 @@ class NewsFragment : Fragment() {
                 is Resource.Success -> {
                     response.data?.let {res ->
                         val topThree = Article.getFirstThreeArticles(res.results)
+                        Log.e("top three result", "$topThree")
                         imageNewsAdapter.differ.submitList(topThree)
                         init()
                         setUpTransformer()
-                        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-                            override fun onPageSelected(position: Int) {
-                                super.onPageSelected(position)
-                            }
-                        })
+                        startAutoScroll()
+
+//                        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+//                            override fun onPageSelected(position: Int) {
+//                                super.onPageSelected(position)
+//                                handler.removeCallbacks(runnable)
+//                                handler.postDelayed(runnable, 10000)
+//
+//                            }
+//                        })
                     }
                 }
                 is Resource.Error -> {
@@ -70,8 +80,45 @@ class NewsFragment : Fragment() {
 
     }
 
-    private val runnable = Runnable {
-        binding.viewPager.currentItem = binding.viewPager.currentItem + 1
+//    override fun onPause() {
+//        super.onPause()
+//        handler.removeCallbacks(runnable)
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        handler.postDelayed(runnable, 2000)
+//    }
+//
+//    private val runnable = Runnable {
+//        binding.viewPager.currentItem = binding.viewPager.currentItem + 1
+//    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        stopAutoScroll() // Stop auto-scrolling when the view is destroyed
+    }
+
+    private fun startAutoScroll(){
+        autoScrollRunnable = Runnable {
+            val currentItem = binding.viewPager.currentItem
+            val nextItem = if (currentItem == imageNewsAdapter.itemCount - 1) 0 else currentItem + 1
+
+            if (nextItem == 0 && currentItem == imageNewsAdapter.itemCount - 1) {
+                // If the next item is the first item and the current item is the last item,
+                // scroll to the next item without smooth scrolling
+                binding.viewPager.setCurrentItem(nextItem, false)
+            } else {
+                binding.viewPager.currentItem = nextItem
+            }
+
+            handler.postDelayed(autoScrollRunnable, 10000) // Delay between auto-scrolls
+        }
+        handler.postDelayed(autoScrollRunnable, 10000)
+    }
+
+    private fun stopAutoScroll() {
+        handler.removeCallbacks(autoScrollRunnable)
     }
 
     private fun init(){
@@ -87,10 +134,11 @@ class NewsFragment : Fragment() {
 
     private fun setUpTransformer(){
         val transformer = CompositePageTransformer()
-        transformer.addTransformer(MarginPageTransformer(40))
-        transformer.addTransformer{page, positiion->
-            val r = 1 - abs(positiion)
-            page.scaleY = 0.85f + r + 0.14f
+        transformer.addTransformer(MarginPageTransformer(0))
+        transformer.addTransformer{page, position->
+            val r = 1 - kotlin.math.abs(position)
+            page.scaleY = 0.65f + r * 0.10f
+            page.scaleX = 0.75f + r * 0.10f
         }
 
         binding.viewPager.setPageTransformer(transformer)

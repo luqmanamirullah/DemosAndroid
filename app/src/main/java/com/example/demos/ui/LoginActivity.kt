@@ -86,6 +86,8 @@ class LoginActivity : AppCompatActivity() {
             googleSignInHelper.login()
         }
 
+
+
         // Initialize the TextView
         txtForgetPassword = findViewById(R.id.txtForgotPassword)
         txtSignUp = findViewById(R.id.txtSignUp)
@@ -127,7 +129,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun register(){
-
+        startActivity(Intent(this, RegisterActivity::class.java))
     }
 
     private fun showLoading(){

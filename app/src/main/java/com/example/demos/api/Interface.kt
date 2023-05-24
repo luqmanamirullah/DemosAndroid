@@ -94,4 +94,6 @@ interface Interface {
         @Header("Authorization") token: String,
         @Body opinionRequest: OpinionRequest
     ): Response<CreateOpinion>
+
+
 }

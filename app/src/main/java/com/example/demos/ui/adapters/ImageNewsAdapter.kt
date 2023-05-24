@@ -1,5 +1,6 @@
 package com.example.demos.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,20 +17,26 @@ import java.util.Objects
 
 class ImageNewsAdapter(private val viewPager2: ViewPager2):
     RecyclerView.Adapter<ImageNewsAdapter.ImageViewHolder>(){
+    private lateinit var imageDefault: ArrayList<Int>
+
 
     private var itemCount: Int = 0
     inner class ImageViewHolder(val binding: ImageContainerBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
+
         val binding = ImageContainerBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
+
         return ImageViewHolder(binding)
     }
     private val diffCall = object : DiffUtil.ItemCallback<Article>(){
+
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+
             return oldItem.id == newItem.id
         }
 
@@ -41,18 +48,25 @@ class ImageNewsAdapter(private val viewPager2: ViewPager2):
     val differ = AsyncListDiffer(this, diffCall)
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+
         val highlight = differ.currentList[position]
         holder.binding.apply {
-            txtTitle.text = highlight.category.indexOfFirst { true }.toString()
+            txtTitle.text = highlight.keywords[0]
             txtDescripton.text = highlight.title
             Glide.with(holder.itemView).load(highlight.image_url).into(ivPicture)
         }
-        if (position == differ.currentList.size - 1){
-            viewPager2.post{
+
+        val loopRunnable = Runnable {
+            val itemCount = differ.currentList.size
+            if (position == itemCount - 1) {
                 viewPager2.setCurrentItem(0, false)
             }
         }
+
+        viewPager2.post(loopRunnable)
+        viewPager2.removeCallbacks(loopRunnable)
     }
+
 
     override fun getItemCount(): Int = differ.currentList.size
 

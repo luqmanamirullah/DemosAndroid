@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 object RetrofitInstance {
     private val retrofit by lazy {
@@ -42,4 +43,5 @@ object RetrofitInstance {
     val api: Interface by lazy {
         retrofit.create(Interface::class.java)
     }
+
 }
