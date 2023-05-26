@@ -53,34 +53,34 @@ class SearchFragment : Fragment() {
         }
 
 
-        viewModel.searchMatch.observe(viewLifecycleOwner, Observer { response ->
-            when(response){
-                is Resource.Success -> {
-                    response.data?.let { res ->
-                        if (res.news.isNullOrEmpty()){
-                            binding.rvNewsResult.visibility = View.GONE
-                        } else {
-                            binding.rvNewsResult.visibility = View.VISIBLE
-                            newsListsAdapter.differ.submitList(res.news)
-                        }
-                        if (res.policy.isNullOrEmpty()){
-                            binding.rvPolicyResult.visibility = View.GONE
-                        } else {
-                            binding.rvPolicyResult.visibility = View.VISIBLE
-                            policyListsAdapter.differ.submitList(res.policy)
-                        }
-                    }
-                }
-                is Resource.Error -> {
-                    response.message?.let { message ->
-                        Log.e("News Data", "An error occured: $message")
-                    }
-                }
-                else -> {
-                    Log.e("Unknwon", "Error")
-                }
-            }
-        })
+//        viewModel.searchMatch.observe(viewLifecycleOwner, Observer { response ->
+//            when(response){
+//                is Resource.Success -> {
+//                    response.data?.let { res ->
+//                        if (res.news.isNullOrEmpty()){
+//                            binding.rvNewsResult.visibility = View.GONE
+//                        } else {
+//                            binding.rvNewsResult.visibility = View.VISIBLE
+//                            newsListsAdapter.differ.submitList(res.news)
+//                        }
+//                        if (res.policy.isNullOrEmpty()){
+//                            binding.rvPolicyResult.visibility = View.GONE
+//                        } else {
+//                            binding.rvPolicyResult.visibility = View.VISIBLE
+//                            policyListsAdapter.differ.submitList(res.policy)
+//                        }
+//                    }
+//                }
+//                is Resource.Error -> {
+//                    response.message?.let { message ->
+//                        Log.e("News Data", "An error occured: $message")
+//                    }
+//                }
+//                else -> {
+//                    Log.e("Unknwon", "Error")
+//                }
+//            }
+//        })
 
         return binding.root
     }

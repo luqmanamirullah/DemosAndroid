@@ -3,8 +3,8 @@ package com.example.demos.utils
 class Constants {
     companion object {
         const val BASE_URL = "https://demosserve.000webhostapp.com/api/"
-        const val NEWS_API = "https://newsdata.io/api/1/"
-        const val API_KEY = "pub_2258701cb9551117bbdb362471575980ecc3f"
+        const val NEWS_API = "https://newsapi.org/v2/"
+        const val API_KEY = "0ab90e2ca9664a2988ccc313b21dbebe"
         const val SEARCH_DELAY = 500L
         const val LOADING_VIEW_TYPE = 0
         const val DONE_VIEW_TYPE = 1

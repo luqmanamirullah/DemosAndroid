@@ -79,27 +79,27 @@ class HomeFragment : Fragment() {
             }
         })
 
-        rvNewsLists()
-        viewModel.news.observe(viewLifecycleOwner, Observer { response ->
-            when(response){
-                is Resource.Success -> {
-                    response.data?.let { newsResponse ->
-                        newsListsAdapter.differ.submitList(newsResponse.data)
-                    }
-                }
-                is Resource.Error -> {
-                    response.message?.let { message ->
-                        Log.e("News Data", "An error occured: $message")
-                    }
-                }
-                is Resource.Loading -> {
-                    newsListsAdapter.differ.submitList(emptyList())
-                }
-                else -> {
-                    Log.e("Unknwon", "Error")
-                }
-            }
-        })
+//        rvNewsLists()
+//        viewModel.news.observe(viewLifecycleOwner, Observer { response ->
+//            when(response){
+//                is Resource.Success -> {
+//                    response.data?.let { newsResponse ->
+//                        newsListsAdapter.differ.submitList(newsResponse.data)
+//                    }
+//                }
+//                is Resource.Error -> {
+//                    response.message?.let { message ->
+//                        Log.e("News Data", "An error occured: $message")
+//                    }
+//                }
+//                is Resource.Loading -> {
+//                    newsListsAdapter.differ.submitList(emptyList())
+//                }
+//                else -> {
+//                    Log.e("Unknwon", "Error")
+//                }
+//            }
+//        })
 
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

@@ -2,7 +2,6 @@ package com.example.demos.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.demos.models.news.News
 import com.example.demos.models.newsFromInternet.Article
 
 @Dao

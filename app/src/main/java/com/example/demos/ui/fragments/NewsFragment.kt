@@ -11,14 +11,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
 import com.example.demos.databinding.FragmentNewsBinding
 import com.example.demos.models.newsFromInternet.Article
 import com.example.demos.ui.MainActivity
 import com.example.demos.ui.adapters.ImageNewsAdapter
+import com.example.demos.ui.adapters.NewsListsAdapter
 import com.example.demos.ui.viewmodels.NewsViewModel
 import com.example.demos.utils.Resource
-import java.lang.Math.abs
+import com.example.demos.utils.WrapContentLinearLayoutManager
 
 class NewsFragment : Fragment() {
     lateinit var binding: FragmentNewsBinding
@@ -27,7 +27,7 @@ class NewsFragment : Fragment() {
 
     private lateinit var handler: Handler
     private lateinit var autoScrollRunnable: Runnable
-
+    private lateinit var newsListsAdapter: NewsListsAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,14 +43,16 @@ class NewsFragment : Fragment() {
         imageNewsAdapter = ImageNewsAdapter(binding.viewPager)
         handler = Handler()
 
-        viewModel.getNews("top")
+        rvLatestNews()
+        viewModel.getNews("")
         viewModel.news.observe(viewLifecycleOwner, Observer {response ->
             when(response){
                 is Resource.Success -> {
                     response.data?.let {res ->
-                        val topThree = Article.getFirstThreeArticles(res.results)
+                        val topThree = Article.getFirstThreeArticles(res.articles)
                         Log.e("top three result", "$topThree")
                         imageNewsAdapter.differ.submitList(topThree)
+                        newsListsAdapter.differ.submitList(res.articles)
                         init()
                         setUpTransformer()
                         startAutoScroll()
@@ -105,8 +107,6 @@ class NewsFragment : Fragment() {
             val nextItem = if (currentItem == imageNewsAdapter.itemCount - 1) 0 else currentItem + 1
 
             if (nextItem == 0 && currentItem == imageNewsAdapter.itemCount - 1) {
-                // If the next item is the first item and the current item is the last item,
-                // scroll to the next item without smooth scrolling
                 binding.viewPager.setCurrentItem(nextItem, false)
             } else {
                 binding.viewPager.currentItem = nextItem
@@ -137,10 +137,16 @@ class NewsFragment : Fragment() {
         transformer.addTransformer(MarginPageTransformer(0))
         transformer.addTransformer{page, position->
             val r = 1 - kotlin.math.abs(position)
-            page.scaleY = 0.65f + r * 0.10f
+            page.scaleY = 0.75f + r * 0.10f
             page.scaleX = 0.75f + r * 0.10f
         }
 
         binding.viewPager.setPageTransformer(transformer)
+    }
+
+    private fun rvLatestNews()= binding.rvLatestNews.apply{
+        newsListsAdapter = NewsListsAdapter()
+        adapter = newsListsAdapter
+        layoutManager = WrapContentLinearLayoutManager(requireContext())
     }
 }

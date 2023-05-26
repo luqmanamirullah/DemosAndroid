@@ -1,31 +1,38 @@
 package com.example.demos.ui.adapters
 
 import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.demos.databinding.ItemLatestNewsBinding
 import com.example.demos.databinding.ItemNewsListBinding
 import com.example.demos.databinding.ItemNewsListSkeletonBinding
 import com.example.demos.models.news.News
+import com.example.demos.models.newsFromInternet.Article
 import com.example.demos.ui.ArticleActivity
 import com.example.demos.utils.Constants
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class NewsListsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    inner class NewsListsViewHolder(val binding: ItemNewsListBinding): RecyclerView.ViewHolder(binding.root)
+    inner class NewsListsViewHolder(val binding: ItemLatestNewsBinding): RecyclerView.ViewHolder(binding.root)
 
     inner class SkeletonNewsListsViewHolder(val binding: ItemNewsListSkeletonBinding): RecyclerView.ViewHolder(binding.root)
 
-    private val diffCallback = object : DiffUtil.ItemCallback<News>(){
-        override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<Article>(){
+        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
+        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
             return oldItem == newItem
         }
     }
@@ -47,7 +54,7 @@ class NewsListsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             Constants.DONE_VIEW_TYPE -> {
                 val binding =
-                    ItemNewsListBinding.inflate(
+                    ItemLatestNewsBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -67,22 +74,23 @@ class NewsListsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is NewsListsViewHolder -> {
                 val news = differ.currentList[position]
                 holder.apply {
-                    Glide.with(itemView).load(news.image_url).into(binding.ivPicture)
+                    Glide.with(itemView).load(news.urlToImage).into(binding.ivPicture)
                     binding.apply {
-                        tvTitle.text = news.title
-                        tvPreText.text = news.content
-                        tvCreatedAt.text = news.created_at
 
-                        root.setOnClickListener {
-                            val intent = Intent(itemView.context, ArticleActivity::class.java)
-                            intent.putExtra("news_id", news.id)
-                            itemView.context.startActivity(intent)
-                        }
+                        tvTitle.text = news.title
+                        tvDate.text = dateFormatter(news.publishedAt)
+
+//                        root.setOnClickListener {
+//                            val intent = Intent(itemView.context, ArticleActivity::class.java)
+//                            intent.putExtra("news_id", news.id)
+//                            itemView.context.startActivity(intent)
+//                        }
                     }
                 }
             }
@@ -101,6 +109,15 @@ class NewsListsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         3
     } else {
         differ.currentList.size
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun dateFormatter(date: String): String? {
+        val formatter = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale("id"))
+        val dateTime = LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME)
+        val formatted = dateTime.format(formatter)
+
+        return formatted
     }
 
 }

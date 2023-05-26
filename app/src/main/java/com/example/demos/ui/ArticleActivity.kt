@@ -25,46 +25,48 @@ class ArticleActivity : AppCompatActivity() {
         binding = ActivityArticleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        articleRepository = ArticleRepository()
-        viewModel = ViewModelProvider(this, ArticleViewModelProviderFactory(articleRepository))[ArticleViewModel::class.java]
+//        articleRepository = ArticleRepository()
+//        viewModel = ViewModelProvider(this, ArticleViewModelProviderFactory(articleRepository))[ArticleViewModel::class.java]
+//
+//        val id = intent.getIntExtra("news_id", -1)
+//        viewModel.getNewsDetail(id)
+//
+//        viewModel.article.observe(this, Observer { response ->
+//            when(response){
+//                is Resource.Success -> {
+//                    binding.shimmerViewContainer.stopShimmer()
+//                    binding.shimmerViewContainer.visibility = View.GONE
+//                    binding.ctArticle.visibility = View.VISIBLE
+//                    response.data?.let { articleResponse ->
+//                        Glide.with(this).load(articleResponse.data.image_url).into(binding.ivArticle)
+//                        binding.apply {
+//                            tvType.text = articleResponse.data.type
+//                            tvTitle.text = articleResponse.data.title
+//                            tvAuthor.text = "author by: ${articleResponse.data.author}"
+//                            tvCreatedAt.text = articleResponse.data.created_at
+//                            tvContent.text = "\t${articleResponse.data.content}"
+//                        }
+//                    }
+//                }
+//                is Resource.Error -> {
+//                    response.message?.let { message ->
+//                        Log.e("News Data", "An error occured: $message")
+//                    }
+//                    binding.shimmerViewContainer.stopShimmer()
+//                    binding.shimmerViewContainer.visibility = View.GONE
+//                    binding.ctArticle.visibility = View.VISIBLE
+//                }
+//                is Resource.Loading -> {
+//                    binding.ctArticle.visibility = View.GONE
+//                    binding.shimmerViewContainer.startShimmer()
+//                }
+//                else -> {
+//                    Log.e("Unknwon", "Error")
+//                }
+//            }
+//        })
 
-        val id = intent.getIntExtra("news_id", -1)
-        viewModel.getNewsDetail(id)
 
-        viewModel.article.observe(this, Observer { response ->
-            when(response){
-                is Resource.Success -> {
-                    binding.shimmerViewContainer.stopShimmer()
-                    binding.shimmerViewContainer.visibility = View.GONE
-                    binding.ctArticle.visibility = View.VISIBLE
-                    response.data?.let { articleResponse ->
-                        Glide.with(this).load(articleResponse.data.image_url).into(binding.ivArticle)
-                        binding.apply {
-                            tvType.text = articleResponse.data.type
-                            tvTitle.text = articleResponse.data.title
-                            tvAuthor.text = "author by: ${articleResponse.data.author}"
-                            tvCreatedAt.text = articleResponse.data.created_at
-                            tvContent.text = "\t${articleResponse.data.content}"
-                        }
-                    }
-                }
-                is Resource.Error -> {
-                    response.message?.let { message ->
-                        Log.e("News Data", "An error occured: $message")
-                    }
-                    binding.shimmerViewContainer.stopShimmer()
-                    binding.shimmerViewContainer.visibility = View.GONE
-                    binding.ctArticle.visibility = View.VISIBLE
-                }
-                is Resource.Loading -> {
-                    binding.ctArticle.visibility = View.GONE
-                    binding.shimmerViewContainer.startShimmer()
-                }
-                else -> {
-                    Log.e("Unknwon", "Error")
-                }
-            }
-        })
 
         binding.btnBack.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))

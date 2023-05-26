@@ -1,11 +1,7 @@
 package com.example.demos.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +9,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.demos.databinding.ImageContainerBinding
 import com.example.demos.models.newsFromInternet.Article
-import java.util.Objects
 
 class ImageNewsAdapter(private val viewPager2: ViewPager2):
     RecyclerView.Adapter<ImageNewsAdapter.ImageViewHolder>(){
@@ -51,9 +46,9 @@ class ImageNewsAdapter(private val viewPager2: ViewPager2):
 
         val highlight = differ.currentList[position]
         holder.binding.apply {
-            txtTitle.text = highlight.keywords[0]
+            txtTitle.text = highlight.source.name
             txtDescripton.text = highlight.title
-            Glide.with(holder.itemView).load(highlight.image_url).into(ivPicture)
+            Glide.with(holder.itemView).load(highlight.urlToImage).into(ivPicture)
         }
 
         val loopRunnable = Runnable {
