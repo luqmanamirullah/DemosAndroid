@@ -17,6 +17,7 @@ import com.example.demos.databinding.ItemNewsListSkeletonBinding
 import com.example.demos.models.news.News
 import com.example.demos.models.newsFromInternet.Article
 import com.example.demos.ui.ArticleActivity
+import com.example.demos.ui.PdfWebViewActivity
 import com.example.demos.utils.Constants
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -86,11 +87,11 @@ class NewsListsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         tvTitle.text = news.title
                         tvDate.text = dateFormatter(news.publishedAt)
 
-//                        root.setOnClickListener {
-//                            val intent = Intent(itemView.context, ArticleActivity::class.java)
-//                            intent.putExtra("news_id", news.id)
-//                            itemView.context.startActivity(intent)
-//                        }
+                        root.setOnClickListener {
+                            val intent = Intent(itemView.context, PdfWebViewActivity::class.java)
+                            intent.putExtra("url", news.url)
+                            itemView.context.startActivity(intent)
+                        }
                     }
                 }
             }

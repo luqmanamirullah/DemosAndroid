@@ -25,9 +25,9 @@
 <!--        <activity-->
 <!--            android:name=".ui.PolicyActivity"-->
 <!--            android:exported="false" />-->
-<!--        <activity-->
-<!--            android:name=".ui.PdfWebViewActivity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".ui.PdfWebViewActivity"
+            android:exported="false" />
 <!--        <activity-->
 <!--            android:name=".RegisterActivity"-->
 <!--            android:exported="false" />-->

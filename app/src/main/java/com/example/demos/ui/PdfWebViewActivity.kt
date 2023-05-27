@@ -16,18 +16,17 @@ class PdfWebViewActivity() : AppCompatActivity() {
         binding = ActivityPdfWebViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val file = intent.getStringExtra("policy_file")
+        val news = intent.getStringExtra("url")
 
-        binding.apply {
-            webView.webViewClient = WebViewClient()
-            webView.settings.setSupportZoom(true)
-            webView.settings.javaScriptEnabled = true
-            webView.loadUrl("https://docs.google.com/gview?embedded=true&url=$file")
-            webView.setDownloadListener(DownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
-                val i = Intent(Intent.ACTION_VIEW)
-                i.data = Uri.parse(url)
-                startActivity(i)
-            })
+        news?.let{
+            binding.apply {
+                webView.webViewClient = WebViewClient()
+                webView.loadUrl(news)
+            }
+        }
+
+        binding.btnBack.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
 

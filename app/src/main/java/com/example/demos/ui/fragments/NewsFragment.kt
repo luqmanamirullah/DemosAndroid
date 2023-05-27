@@ -1,5 +1,6 @@
 package com.example.demos.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -14,6 +15,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import com.example.demos.databinding.FragmentNewsBinding
 import com.example.demos.models.newsFromInternet.Article
 import com.example.demos.ui.MainActivity
+import com.example.demos.ui.PdfWebViewActivity
 import com.example.demos.ui.adapters.ImageNewsAdapter
 import com.example.demos.ui.adapters.NewsListsAdapter
 import com.example.demos.ui.viewmodels.NewsViewModel
@@ -130,6 +132,8 @@ class NewsFragment : Fragment() {
             clipToPadding = false
             getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
+
+
     }
 
     private fun setUpTransformer(){
