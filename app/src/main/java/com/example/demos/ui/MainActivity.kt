@@ -14,10 +14,12 @@ import com.example.demos.databinding.ActivityMainBinding
 import com.example.demos.repository.HomeRepository
 import com.example.demos.repository.NewsRepository
 import com.example.demos.repository.PolicyRepository
+import com.example.demos.repository.SearchRepository
 import com.example.demos.ui.fragments.ProfileFragment
 import com.example.demos.ui.viewmodels.*
 
 class MainActivity : AppCompatActivity() {
+    lateinit var searchViewModel: SearchViewModel
     lateinit var binding: ActivityMainBinding
     lateinit var homeViewModel: HomeViewModel
     lateinit var policyViewModel: PolicyViewModel
@@ -48,6 +50,12 @@ class MainActivity : AppCompatActivity() {
             this,
             NewsViewModelProviderFactory(newsRepository)
         )[NewsViewModel::class.java]
+
+        val searchRepository = SearchRepository(NewsDatabase(this))
+        searchViewModel = ViewModelProvider(
+            this,
+            SearchViewModelProviderFactory(searchRepository)
+        )[SearchViewModel::class.java]
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

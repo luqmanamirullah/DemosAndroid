@@ -1,6 +1,5 @@
 package com.example.demos.ui.adapters
 
-import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -8,22 +7,18 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.demos.databinding.ItemLatestNewsBinding
 import com.example.demos.databinding.ItemNewsListBinding
 import com.example.demos.databinding.ItemNewsListSkeletonBinding
-import com.example.demos.models.news.News
 import com.example.demos.models.newsFromInternet.Article
-import com.example.demos.ui.ArticleActivity
 import com.example.demos.utils.Constants
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 class NewsListsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    inner class NewsListsViewHolder(val binding: ItemLatestNewsBinding): RecyclerView.ViewHolder(binding.root)
+    inner class NewsListsViewHolder(val binding: ItemNewsListBinding): RecyclerView.ViewHolder(binding.root)
 
     inner class SkeletonNewsListsViewHolder(val binding: ItemNewsListSkeletonBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -54,7 +49,7 @@ class NewsListsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             Constants.DONE_VIEW_TYPE -> {
                 val binding =
-                    ItemLatestNewsBinding.inflate(
+                    ItemNewsListBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
@@ -84,7 +79,6 @@ class NewsListsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     binding.apply {
 
                         tvTitle.text = news.title
-                        tvDate.text = dateFormatter(news.publishedAt)
 
 //                        root.setOnClickListener {
 //                            val intent = Intent(itemView.context, ArticleActivity::class.java)
