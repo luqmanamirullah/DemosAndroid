@@ -1,5 +1,6 @@
 package com.example.demos.ui.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -9,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.demos.databinding.ImageContainerBinding
 import com.example.demos.models.newsFromInternet.Article
+import com.example.demos.ui.PdfWebViewActivity
 
 class ImageNewsAdapter(private val viewPager2: ViewPager2):
     RecyclerView.Adapter<ImageNewsAdapter.ImageViewHolder>(){
@@ -49,6 +51,12 @@ class ImageNewsAdapter(private val viewPager2: ViewPager2):
             txtTitle.text = highlight.source.name
             txtDescripton.text = highlight.title
             Glide.with(holder.itemView).load(highlight.urlToImage).into(ivPicture)
+
+            root.setOnClickListener {
+                val intent = Intent(holder.itemView.context, PdfWebViewActivity::class.java)
+                intent.putExtra("url", highlight.url)
+                holder.itemView.context.startActivity(intent)
+            }
         }
 
         val loopRunnable = Runnable {

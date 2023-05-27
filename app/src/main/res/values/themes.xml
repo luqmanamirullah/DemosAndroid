@@ -27,4 +27,9 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">15dp</item>
     </style>
+    <style name="rounded_b_xl_white" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">50dp</item>
+        <item name="cornerSizeBottomRight">50dp</item>
+    </style>
 </resources>
