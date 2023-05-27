@@ -20,6 +20,7 @@ data class Article(
     val url: String,
     val urlToImage: String?
 ): Serializable {
+
     companion object {
         fun getFirstThreeArticles(articles: List<Article>): List<Article> {
             return articles.take(3)
