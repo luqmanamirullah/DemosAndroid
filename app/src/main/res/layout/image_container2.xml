@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
-        android:background="@drawable/search_bar_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.imageview.ShapeableImageView

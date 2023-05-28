@@ -2,15 +2,18 @@ package com.example.demos.ui.adapters
 
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.demos.R
 import com.example.demos.databinding.ItemLatestNewsBinding
 import com.example.demos.databinding.ItemNewsListBinding
 import com.example.demos.databinding.ItemNewsListSkeletonBinding
@@ -86,11 +89,27 @@ class NewsListsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         tvTitle.text = news.title
                         tvDate.text = dateFormatter(news.publishedAt)
 
-//                        root.setOnClickListener {
-//                            val intent = Intent(itemView.context, ArticleActivity::class.java)
-//                            intent.putExtra("news_id", news.id)
-//                            itemView.context.startActivity(intent)
-//                        }
+                        root.setOnClickListener {
+                            val bundle = Bundle().apply {
+                                putSerializable("article", news)
+                            }
+
+                            val navController = Navigation.findNavController(holder.itemView)
+                            val currentDestination = navController.currentDestination
+
+                            if (currentDestination?.id == R.id.saveNewsFragment2) {
+                                navController.navigate(
+                                    R.id.action_saveNewsFragment2_to_articleFragment,
+                                    bundle
+                                )
+                            } else {
+                                navController.navigate(
+                                    R.id.action_newsFragment_to_articleFragment,
+                                    bundle
+                                )
+                            }
+                        }
+
                     }
                 }
             }

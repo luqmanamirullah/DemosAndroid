@@ -1,13 +1,16 @@
 package com.example.demos.ui.adapters
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.example.demos.R
 import com.example.demos.databinding.ImageContainerBinding
 import com.example.demos.models.newsFromInternet.Article
 import com.example.demos.ui.PdfWebViewActivity
@@ -53,9 +56,15 @@ class ImageNewsAdapter(private val viewPager2: ViewPager2):
             Glide.with(holder.itemView).load(highlight.urlToImage).into(ivPicture)
 
             root.setOnClickListener {
-                val intent = Intent(holder.itemView.context, PdfWebViewActivity::class.java)
-                intent.putExtra("url", highlight.url)
-                holder.itemView.context.startActivity(intent)
+                val bundle = Bundle().apply {
+                    putSerializable("article", highlight)
+                }
+
+                val navController = Navigation.findNavController(holder.itemView)
+                navController.navigate(
+                    R.id.action_newsFragment_to_articleFragment,
+                    bundle
+                )
             }
         }
 

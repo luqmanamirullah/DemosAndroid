@@ -1,11 +1,14 @@
 package com.example.demos.ui.adapters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.demos.R
 import com.example.demos.databinding.ImageContainer2Binding
 import com.example.demos.models.newsFromInternet.Article
 
@@ -41,6 +44,16 @@ class SearchNewsAdapter : RecyclerView.Adapter<SearchNewsAdapter.SearchNewsViewH
             tvTitle.text = highlight.title
             tvDescripton.text = highlight.description
             Glide.with(holder.itemView).load(highlight.urlToImage).into(ivImage)
+            root.setOnClickListener {
+                val bundle = Bundle().apply {
+                    putSerializable("article", highlight)
+                }
+
+                Navigation.findNavController(holder.itemView).navigate(
+                    R.id.action_searchNewsFragment_to_articleFragment,
+                    bundle
+                )
+            }
         }
     }
 

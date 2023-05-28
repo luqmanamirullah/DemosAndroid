@@ -83,12 +83,13 @@ class MainActivity : AppCompatActivity() {
             profileFragment?.updateProfilePhoto(selectedImageUri)
         }
     }
-//    override fun onBackPressed() {
-//        val intent = Intent(this, MainActivity::class.java)
-//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-//        intent.putExtra("openFragmentProfile", true)
-//        intent.putExtra("profileImageUri", selectedImageUri)
-//        startActivity(intent)
-//        finish()
-//    }
+
+    override fun onBackPressed() {
+        val navController = findNavController(R.id.frActivity)
+        if (navController.currentDestination?.id == R.id.articleFragment) {
+            navController.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

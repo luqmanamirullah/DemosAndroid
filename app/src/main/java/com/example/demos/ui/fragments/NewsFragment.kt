@@ -59,14 +59,6 @@ class NewsFragment : Fragment() {
                         setUpTransformer()
                         startAutoScroll()
 
-//                        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-//                            override fun onPageSelected(position: Int) {
-//                                super.onPageSelected(position)
-//                                handler.removeCallbacks(runnable)
-//                                handler.postDelayed(runnable, 10000)
-//
-//                            }
-//                        })
                     }
                 }
                 is Resource.Error -> {
